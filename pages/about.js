@@ -1,4 +1,4 @@
-import { Container, TextInput,Title, Paper, Text} from '@mantine/core'
+import { Container, TextInput,Title, Paper, Text, BackgroundImage, Center} from '@mantine/core'
 import { HeaderSimple } from '../components/HeaderSimple';
 import Image from 'next/image'
 function MyAboutPage(){
@@ -44,10 +44,15 @@ export default function ItsClipped(){
     return (
     <Container>
             <HeaderSimple links={[{link: "/", label: "Home"},{link: "/about", label: "About"}]}/>
-                <main>
-                     <Title order={1}>About</Title>
-                 </main>
-                    <Image src="/park2.jpg" width={850} height={200}/>
+               
+                 <BackgroundImage src="/park2.jpg"
+                        radius="lg"
+                    >
+                        <Center p="md">
+                            <Title order={1} color="#fff">About</Title>
+                        </Center>
+</BackgroundImage>
+                    
             <MyAboutPage/>
     </Container>
         
