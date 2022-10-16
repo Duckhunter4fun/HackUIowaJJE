@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { Container, Tabs, Table, Title, Text, Accordion, Paper, Group, HoverCard, Button, Box, Space, List, ThemeIcon, Center, BackgroundImage } from '@mantine/core';
+import { HeaderSimple } from '../../components/HeaderSimple'
 import useSWR from 'swr'
+import Link from 'next/link';
 //import fetcher from './fetcher';
 
 const APIKEY = 'bfqNy26zwGbEKneubHPeMvyWi0HBuvhhJ2Un8pgg';
@@ -34,6 +36,7 @@ export default function DynamicPage() {
     if (data) {
         return (
             <Container>
+                <HeaderSimple links={[{link: "/", label: <Link href="/">Home</Link>},{link: "/about", label: "About"}]}/>
                 <br />
                 <Box sx={{ maxWidth: 800 }} mx="auto">
                     <BackgroundImage
@@ -109,10 +112,6 @@ function getParkDetails(parkId) {
   }
 
 }
-
-
-
-
 
 function getInfoPiece(data) {
     var hrs = 'standardHours'
