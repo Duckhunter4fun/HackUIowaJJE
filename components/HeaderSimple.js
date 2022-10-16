@@ -56,7 +56,7 @@ export function HeaderSimple({ links }) {
   // const router = useRouter()
 
   const items = links.map((link) => (
-    <Link href={link.link} passHref>
+    <Link key={link.label} href={link.link} passHref>
       <a
       key={link.label}
       href={link.link}

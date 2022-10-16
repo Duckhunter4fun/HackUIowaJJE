@@ -29,7 +29,7 @@ export default function Home() {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
 
-            <HeaderSimple links={[{link: <Link href="/">Home</Link>, label: "Home"},{link: <Link href="/about">About</Link>, label: "About"}]}/>
+            <HeaderSimple links={[{link: "/", label:"Home"},{link: "/about", label: "About"}]}/>
 
             <Image src="/glacier.jpg" width={1000} height={300}/>
             <Blockquote color='green'>Because The World Matters</Blockquote>
