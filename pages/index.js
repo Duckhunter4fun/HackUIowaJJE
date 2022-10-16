@@ -21,8 +21,9 @@ export default function Home() {
     }
 
     return(
-        <Container>
-            <Head>
+        <Container >
+            
+            <Head color="tan">
                 <title>Search Parks</title>
                 <meta name="description" content="National park searcher" />
                 <link rel="icon" href="/favicon.ico" />
@@ -31,7 +32,7 @@ export default function Home() {
             <HeaderSimple links={[{link: "/", label: "Home"},{link: "/about", label: "About"}]}/>
 
             <Image src="/../public/glacier.jpg" width={1000} height={300}/>
-            <Blockquote>Because The World Matters</Blockquote>
+            <Blockquote color='green'>Because The World Matters</Blockquote>
             <h1>Search National Parks</h1>
 
             <Group mb={30} align="center" grow="true">
@@ -39,7 +40,7 @@ export default function Home() {
                 id='search'
                 placeholder="Search National Parks"
                 />
-                <Button onClick={(findParks)}>Search</Button>
+                <Button color="lightBrown" onClick={(findParks)}>Search</Button>
             </Group>
             
             <Grid>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { Container, Tabs, Table, Title, Text, Accordion, Paper, Group, HoverCard, Button, Box, Space, List, ThemeIcon, Center, BackgroundImage } from '@mantine/core';
+import { Container, Tabs, Table, Title, Text, Accordion, Paper, Group, HoverCard, Button, Box, Space, List, ThemeIcon, Center, BackgroundImage, Grid, Card } from '@mantine/core';
 import { HeaderSimple } from '../../components/HeaderSimple'
 import useSWR from 'swr'
 import Link from 'next/link';
@@ -15,19 +15,12 @@ const APIKEY = 'bfqNy26zwGbEKneubHPeMvyWi0HBuvhhJ2Un8pgg';
 const fetcher = (apiURL) => fetch(apiURL).then((res) => res.json())
 
 
-// const fetcher = async () => {
-//     const responce = await fetcher(apiURL)
-//     const data = await responce.json()
-//     return data
-// }
-
 export default function DynamicPage() {
     const router = useRouter()
     const {
         query: { id },
     } = router
     //gets json data for specific park details
-    //const { data, isError } = getParkDetails('acad'/*id*/);
 
     
     const { data, error } = useSWR(`https://developer.nps.gov/api/v1/parks?parkCode=${id}&api_key=${APIKEY}`, fetcher)
@@ -53,11 +46,26 @@ export default function DynamicPage() {
                     {data.data[0].description}
                 </Text>
                 <br />
+                    <Grid>
+                        {data.data[0].images.map((item, i) => (
+                                <Grid.Col key={i} span={1}>
+                                    <Box>
+                                        <BackgroundImage
+                                            src={data.data[0].images[i].url}
+                                            radius="lg"
+                                        >
+                                        </BackgroundImage>
+                                    </Box>
+                                </Grid.Col> 
+                            ))
+                        }                     
+                    </Grid>
+                <br />
                 <Tabs variant="outline" orientation="vertical" defaultValue="gallery">
                     <Tabs.List>
                         <Tabs.Tab value="Info" >Info</Tabs.Tab>
                         <Tabs.Tab value="Activities" >Activities</Tabs.Tab>
-                        <Tabs.Tab value="Alerts" >Alerts</Tabs.Tab>
+                        <Tabs.Tab value="Pictures" >Pictures</Tabs.Tab>
                     </Tabs.List>
 
                     <Tabs.Panel value="Info" pl="xl">
@@ -75,8 +83,8 @@ export default function DynamicPage() {
                         </Text>
                     </Tabs.Panel>
 
-                    <Tabs.Panel value="Alerts" pl="xs">
-                        Settings tab content
+                    <Tabs.Panel value="Pictures" pl="xs">
+                        Under Construction
                     </Tabs.Panel>
                 </Tabs>
             </Container>
@@ -98,17 +106,17 @@ export default function DynamicPage() {
 
 
 //gets json details on specific park
-function getParkDetails(parkId) {
+// function GetParkDetails(parkId) {
   
-  const fetcher = (apiURL) => fetch(apiURL).then((res) => res.json())
-  const { data, error } = useSWR(`https://developer.nps.gov/api/v1/parks?parkCode=${parkId}&api_key=${APIKEY}`, fetcher)
+//   const fetcher = (apiURL) => fetch(apiURL).then((res) => res.json())
+//   const { data, error } = useSWR(`https://developer.nps.gov/api/v1/parks?parkCode=${parkId}&api_key=${APIKEY}`, fetcher)
 
-  return {
-    data: data,
-    isError: error
-  }
+//   return {
+//     data: data,
+//     isError: error
+//   }
 
-}
+// }
 
 function getInfoPiece(data) {
     var hrs = 'standardHours'
@@ -166,43 +174,39 @@ function getInfoPiece(data) {
                         <Group position="center">
                             <Text>{data.data[0].directionsInfo}</Text>
 
-                            <HoverCard width={280} shadow="md">
-                                {data.data[0].entranceFees.map((item, i) => (
-                                    <HoverCard.Target>
-                                        <Button>{data.data[0].entranceFees[i].title}</Button>
-                                    </HoverCard.Target>
+                                {data.data[0].entranceFees.map((item, a) => (
+                                    <HoverCard width={280} shadow="md" key={a}>
+                                        <HoverCard.Target key={a}>
+                                            <Button color="lightBrown">{data.data[0].entranceFees[a].title}</Button>
+                                        </HoverCard.Target>
+                                        <HoverCard.Dropdown key={a}>
+                                            <Paper shadow="xs" p="md">
+                                                <Text>{data.data[0].entranceFees[a].title}</Text>
+                                                <Text>Cost: ${data.data[0].entranceFees[a].cost}</Text>
+                                                <Text>Description: {data.data[0].entranceFees[a].description}</Text>
+                                            </Paper>
+                                        </HoverCard.Dropdown>
+                                    </HoverCard>
                                     ))
                                 }
-                                {data.data[0].entranceFees.map((item, i) => (
-                                    <HoverCard.Dropdown>
-                                        <Paper shadow="xs" p="md">
-                                            <Text>{data.data[0].entranceFees[i].title}</Text>
-                                            <Text>Cost: ${data.data[0].entranceFees[i].cost}</Text>
-                                            <Text>Description: {data.data[0].entranceFees[i].description}</Text>
-                                        </Paper>
-                                    </HoverCard.Dropdown>
+                                 
+                                {data.data[0].entrancePasses?.map((item, b) => (
+                                    <HoverCard width={280} shadow="md">
+                                        <HoverCard.Target key={b}>
+                                            <Button color="lightBrown">{data.data[0].entrancePasses[b].title}</Button>
+                                        </HoverCard.Target>
+                                        <HoverCard.Dropdown key={b}>
+                                            <Paper shadow="xl" p="md">
+                                                <Text>{data.data[0].entrancePasses[b].title}</Text>
+                                                <Text>${data.data[0].entrancePasses[b].cost}</Text>
+                                                <Text>Description: {data.data[0].entrancePasses[b].description}</Text>
+                                            </Paper>
+                                        </HoverCard.Dropdown>
+                                    </HoverCard>
                                     ))
-                                }    
-                            </HoverCard>
+                                }
+                                
                             
-                            <HoverCard width={280} shadow="md">
-                                {data.data[0].entrancePasses?.map((item, i) => (
-                                    <HoverCard.Target>
-                                        <Button>{data.data[0].entrancePasses[i].title}</Button>
-                                    </HoverCard.Target>
-                                    ))
-                                }
-                                {data.data[0].entrancePasses?.map((item, i) => (
-                                    <HoverCard.Dropdown>
-                                        <Paper shadow="xl" p="md">
-                                            <Text>{data.data[0].entrancePasses[i].title}</Text>
-                                            <Text>${data.data[0].entrancePasses[i].cost}</Text>
-                                            <Text>Description: {data.data[0].entrancePasses[i].description}</Text>
-                                        </Paper>
-                                    </HoverCard.Dropdown>
-                                    ))
-                                }
-                            </HoverCard>
                         </Group>
                     </Accordion.Panel>
                 </Accordion.Item>
