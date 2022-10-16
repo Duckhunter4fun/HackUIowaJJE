@@ -31,7 +31,7 @@ export default function Home() {
 
             <HeaderSimple links={[{link: "/", label: "Home"},{link: "/about", label: "About"}]}/>
 
-            <Image src="/../public/glacier.jpg" width={1000} height={300}/>
+            <Image src="/glacier.jpg" width={1000} height={300}/>
             <Blockquote color='green'>Because The World Matters</Blockquote>
             <h1>Search National Parks</h1>
 

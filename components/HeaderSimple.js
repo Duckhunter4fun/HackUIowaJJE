@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { createStyles, Header, Container, Group, Burger } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
+import { useRouter } from 'next/router'
+import Link from 'next/link';
 //import { MantineLogo } from '@mantine/ds';
 
 const useStyles = createStyles((theme) => ({
@@ -51,18 +53,22 @@ export function HeaderSimple({ links }) {
   const [active, setActive] = useState(links[0].link);
   const { classes, cx } = useStyles();
 
+  // const router = useRouter()
+
   const items = links.map((link) => (
-    <a
+    <Link href={link.link} passHref>
+      <a
       key={link.label}
       href={link.link}
       className={cx(classes.link, { [classes.linkActive]: active === link.link })}
       onClick={(event) => {
-        event.preventDefault();
         setActive(link.link);
       }}
     >
       {link.label}
     </a>
+    </Link>
+    
   ));
 
   return (

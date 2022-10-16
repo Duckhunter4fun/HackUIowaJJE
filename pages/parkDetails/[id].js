@@ -29,7 +29,7 @@ export default function DynamicPage() {
     if (data) {
         return (
             <Container>
-                <HeaderSimple links={[{link: "/", label: <Link href="/">Home</Link>},{link: "/about", label: "About"}]}/>
+                <HeaderSimple links={[{link: "/", label:"Home"},{link: "/about", label: "About"}]}/>
                 <br />
                 <Box sx={{ maxWidth: 800 }} mx="auto">
                     <BackgroundImage
