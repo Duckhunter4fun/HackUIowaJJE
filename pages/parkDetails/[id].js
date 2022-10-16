@@ -191,7 +191,7 @@ function getInfoPiece(data) {
                                 }
                                  
                                 {data.data[0].entrancePasses?.map((item, b) => (
-                                    <HoverCard width={280} shadow="md">
+                                    <HoverCard width={280} shadow="md" key={b}>
                                         <HoverCard.Target key={b}>
                                             <Button color="lightBrown">{data.data[0].entrancePasses[b].title}</Button>
                                         </HoverCard.Target>
