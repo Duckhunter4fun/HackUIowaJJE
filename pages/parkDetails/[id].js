@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { Container, Tabs, Table, Title, Text, Accordion, Paper, Group, HoverCard, Button, Box, Space, List, ThemeIcon, Center, BackgroundImage } from '@mantine/core';
-//import { IconPhoto, IconMessageCircle, IconSettings } from '@tabler/icons';
 import useSWR from 'swr'
 //import fetcher from './fetcher';
 
@@ -29,7 +28,7 @@ export default function DynamicPage() {
     //const { data, isError } = getParkDetails('acad'/*id*/);
 
     
-    const { data, error } = useSWR(`https://developer.nps.gov/api/v1/parks?parkCode=${'acad'}&api_key=${APIKEY}`, fetcher)
+    const { data, error } = useSWR(`https://developer.nps.gov/api/v1/parks?parkCode=${id}&api_key=${APIKEY}`, fetcher)
 
 
     if (data) {
@@ -47,11 +46,10 @@ export default function DynamicPage() {
                     </BackgroundImage>
                 </Box>
                 <br />
-                <Title order={1}>{data.data[0].fullName}</Title>
                 <Text lineClamp={4}>
                     {data.data[0].description}
                 </Text>
-
+                <br />
                 <Tabs variant="outline" orientation="vertical" defaultValue="gallery">
                     <Tabs.List>
                         <Tabs.Tab value="Info" >Info</Tabs.Tab>
@@ -93,17 +91,6 @@ export default function DynamicPage() {
         )
     }
   }
-
-
-
-
-function detailsPage() {
-  
-    
-
-}
-
-
 
 
 
@@ -182,53 +169,43 @@ function getInfoPiece(data) {
                     <Accordion.Panel>
                         <Group position="center">
                             <Text>{data.data[0].directionsInfo}</Text>
+
                             <HoverCard width={280} shadow="md">
-                                <HoverCard.Target>
-                                    <Button>{data.data[0].entranceFees[0].title}</Button>
-                                </HoverCard.Target>
-                                <HoverCard.Dropdown>
-                                    <Paper shadow="xs" p="md">
-                                        <Text>{data.data[0].entranceFees[0].title}</Text>
-                                        <Text>${data.data[0].entranceFees[0].cost}</Text>
-                                        <Text>Description: {data.data[0].entranceFees[0].description}</Text>
-                                    </Paper>
-                                </HoverCard.Dropdown>
+                                {data.data[0].entranceFees.map((item, i) => (
+                                    <HoverCard.Target>
+                                        <Button>{data.data[0].entranceFees[i].title}</Button>
+                                    </HoverCard.Target>
+                                    ))
+                                }
+                                {data.data[0].entranceFees.map((item, i) => (
+                                    <HoverCard.Dropdown>
+                                        <Paper shadow="xs" p="md">
+                                            <Text>{data.data[0].entranceFees[i].title}</Text>
+                                            <Text>Cost: ${data.data[0].entranceFees[i].cost}</Text>
+                                            <Text>Description: {data.data[0].entranceFees[i].description}</Text>
+                                        </Paper>
+                                    </HoverCard.Dropdown>
+                                    ))
+                                }    
                             </HoverCard>
+                            
                             <HoverCard width={280} shadow="md">
-                                <HoverCard.Target>
-                                    <Button>{data.data[0].entranceFees[1].title}</Button>
-                                </HoverCard.Target>
-                                <HoverCard.Dropdown>
-                                    <Paper shadow="xs" p="md">
-                                        <Text>{data.data[0].entranceFees[1].title}</Text>
-                                        <Text>${data.data[0].entranceFees[1].cost}</Text>
-                                        <Text>Description: {data.data[0].entranceFees[1].description}</Text>
-                                    </Paper>
-                                </HoverCard.Dropdown>
-                            </HoverCard>
-                            <HoverCard width={280} shadow="md">
-                                <HoverCard.Target>
-                                    <Button>{data.data[0].entranceFees[2].title}</Button>
-                                </HoverCard.Target>
-                                <HoverCard.Dropdown>
-                                    <Paper shadow="xs" p="md">
-                                        <Text>{data.data[0].entranceFees[2].title}</Text>
-                                        <Text>${data.data[0].entranceFees[2].cost}</Text>
-                                        <Text>Description: {data.data[0].entranceFees[2].description}</Text>
-                                    </Paper>
-                                </HoverCard.Dropdown>
-                            </HoverCard>
-                            <HoverCard width={280} shadow="md">
-                                <HoverCard.Target>
-                                    <Button>{data.data[0].entrancePasses[0].title}</Button>
-                                </HoverCard.Target>
-                                <HoverCard.Dropdown>
-                                    <Paper shadow="xl" p="md">
-                                        <Text>{data.data[0].entrancePasses[0].title}</Text>
-                                        <Text>${data.data[0].entrancePasses[0].cost}</Text>
-                                        <Text>Description: {data.data[0].entrancePasses[0].description}</Text>
-                                    </Paper>
-                                </HoverCard.Dropdown>
+                                {data.data[0].entrancePasses?.map((item, i) => (
+                                    <HoverCard.Target>
+                                        <Button>{data.data[0].entrancePasses[i].title}</Button>
+                                    </HoverCard.Target>
+                                    ))
+                                }
+                                {data.data[0].entrancePasses?.map((item, i) => (
+                                    <HoverCard.Dropdown>
+                                        <Paper shadow="xl" p="md">
+                                            <Text>{data.data[0].entrancePasses[i].title}</Text>
+                                            <Text>${data.data[0].entrancePasses[i].cost}</Text>
+                                            <Text>Description: {data.data[0].entrancePasses[i].description}</Text>
+                                        </Paper>
+                                    </HoverCard.Dropdown>
+                                    ))
+                                }
                             </HoverCard>
                         </Group>
                     </Accordion.Panel>
