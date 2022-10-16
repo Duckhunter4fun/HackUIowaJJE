@@ -41,7 +41,7 @@ export default function DynamicPage() {
                 <Box sx={{ maxWidth: 800 }} mx="auto">
                     <BackgroundImage
                         src={data.data[0].images[0].url}
-                        radius="sm"
+                        radius="lg"
                     >
                         <Center p="md">
                             <Title order={1} color="#fff">{data.data[0].fullName}</Title>
@@ -65,9 +65,6 @@ export default function DynamicPage() {
                         <Text lineClamp={40}>
                             {getInfoPiece(data)}
                         </Text>
-                        <Table horizontalSpacing="lg" verticalSpacing="xs">
-                            {/* //{getHoursTable(data, "standardHours")} */}
-                        </Table>
                     </Tabs.Panel>
 
                     <Tabs.Panel value="Activities" pl="xl">
