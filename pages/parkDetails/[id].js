@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { Container, Tabs, Table, Title, Text, Accordion, Paper, Group, HoverCard, Button, Box, Space, List, ThemeIcon, Center, BackgroundImage, Grid, Card } from '@mantine/core';
 import { HeaderSimple } from '../../components/HeaderSimple'
+import { ImageCard } from '../../components/ImageCard'
 import useSWR from 'swr'
 import Link from 'next/link';
 //import fetcher from './fetcher';
@@ -84,7 +85,7 @@ export default function DynamicPage() {
                     </Tabs.Panel>
 
                     <Tabs.Panel value="Pictures" pl="xs">
-                        Under Construction
+                        {getPicturesPiece(data)}
                     </Tabs.Panel>
                 </Tabs>
             </Container>
@@ -99,6 +100,28 @@ export default function DynamicPage() {
         )
     }
   }
+
+
+
+  function getPicturesPiece(data){
+
+    return(
+        <Container>
+            <Grid>
+                {data?.data[0].images.map((item, i) => (
+                        <Grid.Col key={i} span={6}><ImageCard key={i} image={data.data[0].images[i].url} 
+                                                            title={data.data[0].images[i].title}
+                                                            caption={data.data[0].images[i].caption}>
+                                                    </ImageCard>
+                        </Grid.Col> 
+                    ))
+                }                     
+            </Grid>
+        </Container>
+    )
+
+  }
+
 
 
 
