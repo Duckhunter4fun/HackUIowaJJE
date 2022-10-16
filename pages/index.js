@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import Image from 'next/image'
-import { BackgroundImage, Container, Text, TextInput, Button, Space, Grid, Group, Blockquote } from '@mantine/core'
+import { BackgroundImage, Container, Text, TextInput, Button, Space, Grid, Group, Blockquote, Center, Title } from '@mantine/core'
 import { HeaderSimple } from '../components/HeaderSimple'
 import { BadgeCard } from '../components/BadgeCard'
 import { useState } from 'react'
@@ -28,10 +28,13 @@ export default function Home() {
                 <meta name="description" content="National park searcher" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-
             <HeaderSimple links={[{link: "/", label:"Home"},{link: "/about", label: "About"}]}/>
 
-            <Image src="/glacier.jpg" width={1000} height={300}/>
+            <BackgroundImage src="/glacier.jpg" radius="lg" width={1000} height={300}>
+                        <Center p="md">
+                            <Title order={1} color="#fff">Lets Hike</Title>
+                        </Center>
+            </BackgroundImage>
             <Blockquote color='green'>Because The World Matters</Blockquote>
             <h1>Search National Parks</h1>
 
