@@ -7,6 +7,7 @@ import useSWR from 'swr'
 import Link from 'next/link';
 //import fetcher from './fetcher';
 
+//no need to keep key private. for time sake leave key here
 const APIKEY = 'bfqNy26zwGbEKneubHPeMvyWi0HBuvhhJ2Un8pgg';
 
 // use next router to pass in 4 dig park code.
