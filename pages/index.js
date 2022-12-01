@@ -12,6 +12,7 @@ export default function Home() {
     const [data, setData] = useState()
 
     function findParks() {
+        //no need to keep key private. for time sake leave key here
         const APIKEY = "bfqNy26zwGbEKneubHPeMvyWi0HBuvhhJ2Un8pgg"
         const searchTerm = document.getElementById('search').value
         
